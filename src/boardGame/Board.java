@@ -1,5 +1,7 @@
 package boardgame;
 
+import boardgame.exception.BordGamesExeception;
+
 public class Board {
     private int rows;
     private int columns;
@@ -10,6 +12,7 @@ public class Board {
         this.columns = columns;
         pieces=new Piece[rows][columns];
     }
+    public Board(){}
 
     public int getRows() {
         return rows;
@@ -25,5 +28,18 @@ public class Board {
     //sobrecarga
     public Piece piece(Position position){
         return pieces[position.getRows()][position.getColumns()];
+    }
+
+    //teste se a peça exite
+    public boolean thereIsPiece(Position position){
+        return piece(position)!=null;
+    }
+
+    public void placePiece(Piece piece,Position position){
+        if(!thereIsPiece(position)){
+            throw new BordGamesExeception("There is no part in position"+position);
+        }
+        pieces[position.getRows()][position.getColumns()]=piece;
+        piece.position=position;
     }
 }
