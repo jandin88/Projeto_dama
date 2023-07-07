@@ -36,8 +36,8 @@ public class Board {
     }
 
     public void placePiece(Piece piece,Position position){
-        if(!thereIsPiece(position)){
-            throw new BordGamesExeception("There is no part in position"+position);
+        if(thereIsPiece(position)){
+            throw new BordGamesExeception("There is no part in position "+position);
         }
         pieces[position.getRows()][position.getColumns()]=piece;
         piece.position=position;

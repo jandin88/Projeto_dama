@@ -1,23 +1,30 @@
 package boardgame;
 
-import java.util.ArrayList;
-import java.util.List;
+import ladygame.Color;
+
 
 public class Piece {
     protected Position position;
     public Board board;
+    private Color color;
 
-    private List<Piece> pieceWhite= new ArrayList<>();
-    private List<Piece> pieceBlack= new ArrayList<>();
+
+    public Piece(Board board,Position position,Color color) {
+        this.position =position;
+        this.board = board;
+        this.color=color;
+    }
 
     public Piece(Board board) {
-        this.position =null;
-        this.board = board;
     }
 
 
     protected Board getBoard(){
         return board;
+    }
+
+    public String toString(){
+        return "0";
     }
     
 }
