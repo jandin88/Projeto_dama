@@ -1,8 +1,17 @@
 package app;
 
+import ladygame.Color;
 import ladygame.LadyPiece;
 
 public class Ui {
+
+    public static final String ANSI_WHITE = "\u001B[37m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+
+    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+
     public static void printBoard(LadyPiece[][] ladyPieces){
         for(int i=0;i<ladyPieces.length;i++){
             for (int j=0;j<ladyPieces[i].length;j++){
@@ -15,13 +24,17 @@ public class Ui {
     }
 
     private static void printPiece(LadyPiece piece){
+
         if(piece==null){
             System.out.print("-");
         }else {
-            System.out.print(piece);
+            if (Color.WHITE == piece.getColor()) {
+                System.out.print(ANSI_WHITE + piece + ANSI_RESET);
+            } else {
+                System.out.print(piece);
+            }
         }
 
     }
-
 
 }
