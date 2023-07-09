@@ -2,29 +2,39 @@ package boardgame;
 
 import ladygame.Color;
 
-
-public class Piece {
+public abstract class  Piece {
     protected Position position;
-    public Board board;
-    private Color color;
+    private Board board;
 
-
-    public Piece(Board board,Position position,Color color) {
-        this.position =position;
-        this.board = board;
-        this.color=color;
-    }
 
     public Piece(Board board) {
+        this.board = board;
+        this.position =null;
     }
 
 
-    protected Board getBoard(){
+
+
+    public Board getBoard(){
         return board;
     }
 
-    public String toString(){
-        return "0";
+    public abstract boolean[][] possibleMoves();
+
+    public boolean possibleMoves(Position position){
+        return possibleMoves()[position.getRows()][position.getColumns()];
     }
+    public boolean isThereAnyPossibleMoves(){
+        boolean[][] mat=possibleMoves();
+        for(int i =0;i< mat.length;i++){
+            for(int j=0;j< mat.length;j++){
+                if(mat[i][j]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     
 }
