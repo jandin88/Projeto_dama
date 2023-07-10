@@ -16,7 +16,8 @@ public class Main {
 
             try {
                 Ui.printBoard(ladyTable.getPiece());
-                System.out.println();
+                System.out.println("\nTurn: "+ladyTable.getTurn());
+                System.out.println("Player: "+ladyTable.getCurrentPlayer());
                 System.out.print("Source: ");
                 LadyPosition source = Ui.readLadyPosition(sc);
                 boolean[][]possibleMoves=ladyTable.possibleMoves(source);
@@ -29,6 +30,9 @@ public class Main {
                 LadyPiece capturedPiece = ladyTable.perform(source, target);
             }catch(BordGamesExeception e){
                 System.out.println(e.getMessage()+ "\nPress enter");
+                sc.nextLine();
+            }catch (InputMismatchException e){
+                System.out.println(e.getMessage()+"\nPress enter");
                 sc.nextLine();
             }
 

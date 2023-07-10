@@ -19,11 +19,11 @@ public class RockSimple extends LadyPiece {
             //white sobe o tabuleiro
             //left
             p.setValues(position.getRows()-1,position.getColumns()-1);
-            if(getBoard().positionExist(p)&& getBoard().thereIsPiece(p)){
+            if(getBoard().positionExist(p)&&!getBoard().thereIsPiece(p)){
                 mat[p.getRows()][p.getColumns()]=true;
             }
-            if(getBoard().positionExist(p)&& isThereOpponentPiece(p)){
-                mat[p.getRows()-1][getBoard().getColumns()-1]=true;
+            if(getBoard().positionExist(p)&&isThereOpponentPiece(p)){
+                mat[p.getRows()-1][p.getColumns()-1]=true;
             }
             //Right
             p.setValues(position.getRows()-1,position.getColumns()+1);
@@ -31,7 +31,7 @@ public class RockSimple extends LadyPiece {
                 mat[p.getRows()][p.getColumns()]=true;
             }
             if(getBoard().positionExist(p)&& isThereOpponentPiece(p)){
-                mat[p.getRows()-1][getBoard().getColumns()+1]=true;
+                mat[p.getRows()-1][p.getColumns()+1]=true;
             }
 
         }else {
@@ -43,7 +43,7 @@ public class RockSimple extends LadyPiece {
                 mat[p.getRows()][p.getColumns()]=true;
             }
             if(getBoard().positionExist(p)&& isThereOpponentPiece(p)){
-                mat[p.getRows()+1][getBoard().getColumns()-1]=true;
+                mat[p.getRows()+1][p.getColumns()-1]=true;
             }
             //Right
             p.setValues(position.getRows()+1,position.getColumns()+1);
@@ -51,7 +51,7 @@ public class RockSimple extends LadyPiece {
                 mat[p.getRows()][p.getColumns()]=true;
             }
             if(getBoard().positionExist(p)&& isThereOpponentPiece(p)){
-                mat[p.getRows()+1][getBoard().getColumns()+1]=true;
+                mat[p.getRows()+1][p.getColumns()+1]=true;
             }
         }
         return mat;

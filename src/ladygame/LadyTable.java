@@ -11,6 +11,10 @@ public class LadyTable {
     private final Board board;
     private Color currentPlayer;
 
+    public Color getCurrentPlayer() {
+        return currentPlayer;
+    }
+
     public LadyTable() {
         this.board=new Board(8, 8);
         this.turn = 1;
@@ -22,6 +26,10 @@ public class LadyTable {
         validadeSourcePosition(position);
         return board.piece(position).possibleMoves();
     }
+    private void nextTurn(){
+        turn++;
+        currentPlayer=(currentPlayer==Color.WHITE)?Color.BLACK:Color.WHITE;
+    }
 
     public LadyPiece perform(LadyPosition sourcePosition, LadyPosition targetPosition){
         Position source=sourcePosition.toPosition();
@@ -29,28 +37,33 @@ public class LadyTable {
         validadeSourcePosition(source);
         validateTargetPosition(source,target);
         Piece capturedPiece=makeMove(source,target);
+        nextTurn();
         return (LadyPiece) capturedPiece;
     }
     private Piece makeMove(Position source, Position target){
         Piece p= board.removePiece(source);
-        Piece capturedPiece=board.removePiece(target);
-        board.placePiece(p,target);
-        return capturedPiece;
+        capturedPiece(p,source,target);
+        return null;
     }
 
     private void validadeSourcePosition(Position position){
         if(!board.thereIsPiece(position)){
             throw new BordGamesExeception("source position invalid");
         }
+        if(currentPlayer!=((LadyPiece)board.piece(position)).getColor()){
+            throw new BordGamesExeception("The chosen piece is not yours");
+        }
         if(!board.piece(position).isThereAnyPossibleMoves()){
             throw  new BordGamesExeception("there is impossible movement in piece");
         }
+
     }
     private void validateTargetPosition(Position source, Position target){
         if(!board.piece(source).possibleMoves(target)){
             throw new BordGamesExeception("the chosen piece can't move to target position");
         }
     }
+
 
     public LadyPiece[][] getPiece(){
         LadyPiece[][] mat= new LadyPiece[board.getRows()][board.getColumns()];
@@ -79,6 +92,47 @@ public class LadyTable {
             }
         }
     }
+    private Piece capturedPiece(Piece p,Position source, Position target){
+        if(Color.WHITE==currentPlayer) {
+            if (target.getRows() == source.getRows() - 2 && target.getColumns() == source.getColumns() - 2) {
 
+                Position t = new Position(0, 0);
+                t.setValues(target.getRows() + 1, target.getColumns() + 1);
+                Piece capturedPiece = board.removePiece(t);
+                board.placePiece(p, target);
+                return capturedPiece;
+            }
+            if (target.getRows() == source.getRows() - 2 && target.getColumns() == source.getColumns() + 2) {
 
+                Position t = new Position(0, 0);
+                t.setValues(target.getRows() + 1, target.getColumns() - 1);
+                Piece capturedPiece = board.removePiece(t);
+                board.placePiece(p, target);
+                return capturedPiece;
+            }
+        }else {
+            if (target.getRows() == source.getRows() +2 && target.getColumns() == source.getColumns() -2) {
+
+                Position t = new Position(0, 0);
+                t.setValues(target.getRows() - 1, target.getColumns() + 1);
+                Piece capturedPiece = board.removePiece(t);
+                board.placePiece(p, target);
+                return capturedPiece;
+            }
+            if (target.getRows() == source.getRows() + 2 && target.getColumns() == source.getColumns() + 2) {
+
+                Position t = new Position(0, 0);
+                t.setValues(target.getRows() - 1, target.getColumns() - 1);
+                Piece capturedPiece = board.removePiece(t);
+                board.placePiece(p, target);
+                return capturedPiece;
+            }
+        }
+        board.placePiece(p,target);
+        return null;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
 }

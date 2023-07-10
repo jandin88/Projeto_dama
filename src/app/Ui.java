@@ -65,7 +65,7 @@ public class Ui {
             if (Color.WHITE == piece.getColor()) {
                 System.out.print(piece);
             } else {
-                System.out.print(ANSI_WHITE+piece+ANSI_RESET);
+                System.out.print(ANSI_WHITE+piece+ANSI_RESET+ANSI_RESET);
             }
         }
 
@@ -74,7 +74,7 @@ public class Ui {
         if((row+column)%2!=0){
             System.out.print(ANSI_WHITE_BACKGROUND+"-"+ANSI_RESET);
         }else {
-            System.out.print("-");
+            System.out.print("-"+ANSI_RESET);
         }
     }
 
