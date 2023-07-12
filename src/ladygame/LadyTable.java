@@ -4,6 +4,7 @@ import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
 import boardgame.exception.BordGamesExeception;
+import ladygame.Piece.DamaMoves;
 import ladygame.Piece.RockSimple;
 
 public class LadyTable {
@@ -37,12 +38,15 @@ public class LadyTable {
         validadeSourcePosition(source);
         validateTargetPosition(source,target);
         Piece capturedPiece=makeMove(source,target);
+        LadyPiece movedPiece= (LadyPiece) board.piece(target);
+        promotionRockInDama(movedPiece,target);
         nextTurn();
         return (LadyPiece) capturedPiece;
     }
     private Piece makeMove(Position source, Position target){
         Piece p= board.removePiece(source);
         capturedPiece(p,source,target);
+
         return null;
     }
 
@@ -82,11 +86,10 @@ public class LadyTable {
         for(int i=1;i<=board.getRows();i++){
             for(int j=0;j<board.getColumns();j++){
                 if((i+j)%2==0){
-                    if(i<=3){
-                        placeNewPiece((char) ('a'+j),i,new RockSimple(board,Color.WHITE));
-                    }
-                    if(i>5){
+                    if(i==2 ){
                         placeNewPiece((char) ('a'+j),i,new RockSimple(board,Color.BLACK));
+                    }if(i==7){
+                        placeNewPiece((char) ('a'+j),i,new RockSimple(board,Color.WHITE));
                     }
                 }
             }
@@ -130,6 +133,15 @@ public class LadyTable {
         }
         board.placePiece(p,target);
         return null;
+    }
+    private void promotionRockInDama(LadyPiece movedPiece,Position target){
+        if(movedPiece instanceof RockSimple){
+            if(movedPiece.getColor()==Color.WHITE &&target.getRows()==0||movedPiece.getColor()==Color.BLACK &&target.getRows()==7){
+
+                board.removePiece(target);
+                placeNewPiece((char)('a'+ target.getColumns()),8-target.getRows(), new DamaMoves(board,currentPlayer));
+            }
+        }
     }
 
     public int getTurn() {

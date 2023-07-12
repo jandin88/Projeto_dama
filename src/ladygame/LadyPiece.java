@@ -21,4 +21,8 @@ public abstract class LadyPiece extends Piece{
         LadyPiece p=(LadyPiece) getBoard().piece(position);
         return p!=null && p.getColor()!=color;
     }
+    protected boolean isThereOpponentPiece(int row, int column){
+        LadyPiece p=(LadyPiece) getBoard().piece(row,column);
+        return p!=null && p.getColor()!=color;
+    }
 }
