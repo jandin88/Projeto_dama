@@ -12,6 +12,18 @@ public class LadyTable {
     private final Board board;
     private Color currentPlayer;
 
+    private int countPieceBlack=0;
+    private int countPieceWhite=0;
+
+    public int getCountPieceBlack() {
+        return countPieceBlack;
+    }
+
+    public int getCountPieceWhite() {
+        return countPieceWhite;
+    }
+
+
     public Color getCurrentPlayer() {
         return currentPlayer;
     }
@@ -32,28 +44,28 @@ public class LadyTable {
         currentPlayer=(currentPlayer==Color.WHITE)?Color.BLACK:Color.WHITE;
     }
 
-    public LadyPiece perform(LadyPosition sourcePosition, LadyPosition targetPosition){
+    public void perform(LadyPosition sourcePosition, LadyPosition targetPosition){
         Position source=sourcePosition.toPosition();
         Position target=targetPosition.toPosition();
         validadeSourcePosition(source);
         validateTargetPosition(source,target);
-        Piece capturedPiece=makeMove(source,target);
+        makeMove(source,target);
         LadyPiece movedPiece= (LadyPiece) board.piece(target);
         promotionRockInDama(movedPiece,target);
         nextTurn();
-        return (LadyPiece) capturedPiece;
     }
-    private Piece makeMove(Position source, Position target){
+    private void makeMove(Position source, Position target){
         Piece p= board.removePiece(source);
         capturedPiece(p,source,target);
-        return null;
     }
 
     private void validadeSourcePosition(Position position){
         if(!board.thereIsPiece(position)){
             throw new BordGamesExeception("source position invalid");
         }
-
+        if (currentPlayer != ((LadyPiece) board.piece(position)).getColor()) {
+            throw new BordGamesExeception("The chosen piece is not yours");
+        }
         if(!board.piece(position).isThereAnyPossibleMoves()){
             throw  new BordGamesExeception("there is impossible movement in piece");
         }
@@ -83,35 +95,44 @@ public class LadyTable {
         for(int i=1;i<=board.getRows();i++){
             for(int j=0;j<board.getColumns();j++){
                 if((i+j)%2==0){
-                    if(i==2){
-                        placeNewPiece((char) ('a'+j),i,new RockSimple(board,Color.BLACK));
-                    }if(i==7){
+                    if(i<4){
                         placeNewPiece((char) ('a'+j),i,new RockSimple(board,Color.WHITE));
+                        countPieceWhite++;
+                    }if(i>5){
+                        placeNewPiece((char) ('a'+j),i,new RockSimple(board,Color.BLACK));
+                        countPieceBlack++;
                     }
                 }
             }
         }
     }
-    private Piece capturedPiece(Piece p,Position source, Position target){
-        Piece capturedPiece = null;
+    private void capturedPiece(Piece p,Position source, Position target){
+
+        Piece capturdPiece = null;
         if(p instanceof RockSimple) {
             int capturedRow = (source.getRows() + target.getRows()) / 2;
             int capturedColumn = (source.getColumns() + target.getColumns()) / 2;
             Position capturedPosition = new Position(capturedRow, capturedColumn);
             if (board.thereIsPiece(capturedPosition)) {
-                capturedPiece = board.removePiece(capturedPosition);
+                capturdPiece=board.removePiece(capturedPosition);
             }
         }
         if(p instanceof DamaMoves){
             Position lastCaptured=((DamaMoves)p).getPieceCapturedDama();
             if (lastCaptured != null) {
-                capturedPiece = board.removePiece(lastCaptured);
-
+                capturdPiece=board.removePiece(lastCaptured);
             }
+        }
+        if(capturdPiece!=null){
+            if(((LadyPiece) capturdPiece).getColor()==Color.BLACK){countPieceBlack-=1;
+                System.out.println(countPieceBlack);}
+            else {
+                countPieceWhite--;
+                System.out.println(countPieceWhite);}
         }
 
         board.placePiece(p,target);
-        return capturedPiece;
+
     }
     private void promotionRockInDama(LadyPiece movedPiece,Position target){
         if(movedPiece instanceof RockSimple){

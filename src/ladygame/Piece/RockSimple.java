@@ -24,7 +24,8 @@ public class RockSimple extends LadyPiece {
             }
             if(getBoard().positionExist(p)&&isThereOpponentPiece(p)){
                 if(getBoard().positionExist(p.getRows()-1,p.getColumns()-1)) {
-                    mat[p.getRows() - 1][p.getColumns() - 1] = true;
+                    if(!getBoard().thereIsPiece(p.getRows()-1,p.getColumns()-1))
+                        mat[p.getRows() - 1][p.getColumns() - 1] = true;
                 }
             }
             //Right
@@ -34,7 +35,8 @@ public class RockSimple extends LadyPiece {
             }
             if(getBoard().positionExist(p)&& isThereOpponentPiece(p)){
                 if(getBoard().positionExist(p.getRows()-1,p.getColumns()+1)) {
-                    mat[p.getRows() - 1][p.getColumns() + 1] = true;
+                    if(!getBoard().thereIsPiece(p.getRows()-1,p.getColumns()+1))
+                        mat[p.getRows() - 1][p.getColumns() + 1] = true;
                 }
             }
 
@@ -48,7 +50,8 @@ public class RockSimple extends LadyPiece {
             }
             if(getBoard().positionExist(p)&& isThereOpponentPiece(p)){
                 if(getBoard().positionExist(p.getRows()+1,p.getColumns()-1)) {
-                    mat[p.getRows() + 1][p.getColumns() - 1] = true;
+                    if(!getBoard().thereIsPiece(p.getRows()+1,p.getColumns()-1))
+                        mat[p.getRows() + 1][p.getColumns() - 1] = true;
                 }
             }
             //Right
@@ -58,7 +61,8 @@ public class RockSimple extends LadyPiece {
             }
             if(getBoard().positionExist(p)&& isThereOpponentPiece(p)){
                 if(getBoard().positionExist(p.getRows()+1,p.getColumns()+ 1)) {
-                    mat[p.getRows() + 1][p.getColumns() + 1] = true;
+                    if(getBoard().thereIsPiece(p.getRows()+1,p.getColumns()+1))
+                        mat[p.getRows() + 1][p.getColumns() + 1] = true;
                 }
             }
         }

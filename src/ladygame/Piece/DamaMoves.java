@@ -31,9 +31,8 @@ public class DamaMoves extends LadyPiece {
                 if (getBoard().positionExist(p.getRows()+1, p.getColumns()+1)) {
                     if (!getBoard().thereIsPiece(p.getRows() + 1, p.getColumns() + 1)) {
                         mat[p.getRows()+1][p.getColumns()+1] = true;
-                        Position position1=new Position(p.getRows(),p.getColumns());
-                        pieceCapturedDama=position1;
-                        System.out.println(position);
+                        pieceCapturedDama=new Position(p.getRows(),p.getColumns());
+
                     } else{
                         break;
                     }
@@ -51,9 +50,8 @@ public class DamaMoves extends LadyPiece {
                 if (getBoard().positionExist(p.getRows() + 1, p.getColumns() - 1)) {
                     if (!getBoard().thereIsPiece(p.getRows() + 1, p.getColumns() - 1)) {
                         mat[p.getRows()+1][p.getColumns()-1] = true;
-                        pieceCapturedDama =position;
-                        System.out.print(position);
-                        System.out.print(position);
+                        pieceCapturedDama=new Position(p.getRows(),p.getColumns());
+
                     } else {
                         break;
                     }
@@ -71,8 +69,8 @@ public class DamaMoves extends LadyPiece {
                 if (getBoard().positionExist(p.getRows() - 1, p.getColumns() + 1)) {
                     if (!getBoard().thereIsPiece(p.getRows() - 1, p.getColumns() + 1)) {
                         mat[p.getRows()-1][p.getColumns()+1] = true;
-                        pieceCapturedDama =position;
-                        System.out.print(position);
+                        pieceCapturedDama=new Position(p.getRows(),p.getColumns());
+
                     } else {
                         break;
                     }
@@ -90,8 +88,7 @@ public class DamaMoves extends LadyPiece {
             else if(getBoard().positionExist(p.getRows()-1, p.getColumns()-1)){
                 if(!getBoard().thereIsPiece(p.getRows()-1,p.getColumns()-1)){
                     mat[p.getRows()-1][p.getColumns()-1]=true;
-                    pieceCapturedDama =position;
-                    System.out.print(position);
+                    pieceCapturedDama=new Position(p.getRows(),p.getColumns());
                 }
                 else
                     break;

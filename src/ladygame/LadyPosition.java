@@ -17,9 +17,6 @@ public class LadyPosition {
     protected Position toPosition(){
         return new Position(8-row,colunm-'a');
     }
-    protected static LadyPosition fromPosition(Position position){
-        return  new LadyPosition((char)('a'-position.getColumns()),8- position.getRows());
-    }
     public String toString(){
         return ""+colunm+row;
     }

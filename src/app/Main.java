@@ -1,7 +1,6 @@
 package app;
 
 import boardgame.exception.BordGamesExeception;
-import ladygame.LadyPiece;
 import ladygame.LadyPosition;
 import ladygame.LadyTable;
 
@@ -12,9 +11,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         LadyTable ladyTable = new LadyTable();
-        while (true) {
-
-            //try {
+        do{
+            try {
+                Ui.clearScreen();
                 Ui.printBoard(ladyTable.getPiece());
                 System.out.println("\nTurn: "+ladyTable.getTurn());
                 System.out.println("Player: "+ladyTable.getCurrentPlayer());
@@ -25,17 +24,13 @@ public class Main {
 
                 System.out.print("Target: ");
                 LadyPosition target = Ui.readLadyPosition(sc);
-
-
-                LadyPiece capturedPiece = ladyTable.perform(source, target);
-            /*}catch(BordGamesExeception e){
+                ladyTable.perform(source, target);
+            }catch(BordGamesExeception | InputMismatchException e){
                 System.out.println(e.getMessage()+ "\nPress enter");
                 sc.nextLine();
-            }catch (InputMismatchException e){
-                System.out.println(e.getMessage()+"\nPress enter");
-                sc.nextLine();
-            }*/
+            }
 
-        }
+        }while(ladyTable.getCountPieceBlack()!=0&&ladyTable.getCountPieceWhite()!=0);
+        System.out.println(Ui.ANSI_YELLOW+"Winner "+ladyTable.getCurrentPlayer()+Ui.ANSI_RESET);
     }
 }
