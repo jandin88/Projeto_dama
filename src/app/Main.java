@@ -14,7 +14,7 @@ public class Main {
         LadyTable ladyTable = new LadyTable();
         while (true) {
 
-            try {
+            //try {
                 Ui.printBoard(ladyTable.getPiece());
                 System.out.println("\nTurn: "+ladyTable.getTurn());
                 System.out.println("Player: "+ladyTable.getCurrentPlayer());
@@ -28,13 +28,13 @@ public class Main {
 
 
                 LadyPiece capturedPiece = ladyTable.perform(source, target);
-            }catch(BordGamesExeception e){
+            /*}catch(BordGamesExeception e){
                 System.out.println(e.getMessage()+ "\nPress enter");
                 sc.nextLine();
             }catch (InputMismatchException e){
                 System.out.println(e.getMessage()+"\nPress enter");
                 sc.nextLine();
-            }
+            }*/
 
         }
     }

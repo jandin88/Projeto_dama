@@ -34,7 +34,9 @@ public class Board {
     public boolean thereIsPiece(Position position) {
         return piece(position) != null;
     }
-
+    public boolean thereIsPiece(int row,int column) {
+        return piece(row,column) != null;
+    }
 
     public void placePiece(Piece piece, Position position) {
         if (thereIsPiece(position)) {
@@ -54,7 +56,7 @@ public class Board {
 
     public Piece removePiece(Position position) {
         if (!positionExist(position)) {
-            throw new BordGamesExeception("Position not the board");
+            throw new BordGamesExeception("Position not the board"+ position);
         }
         if (!thereIsPiece(position)) {
             return null;

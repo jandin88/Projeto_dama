@@ -44,7 +44,7 @@ public class RockSimple extends LadyPiece {
             //left
             p.setValues(position.getRows()+1,position.getColumns()-1);
             if(getBoard().positionExist(p)&& !getBoard().thereIsPiece(p)){
-                mat[p.getRows()][p.getColumns()]=true;
+                mat[p.getRows()][ p.getColumns()]=true;
             }
             if(getBoard().positionExist(p)&& isThereOpponentPiece(p)){
                 if(getBoard().positionExist(p.getRows()+1,p.getColumns()-1)) {
